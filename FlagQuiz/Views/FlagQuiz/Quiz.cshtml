@@ -6,22 +6,9 @@
         <h2>Flag Quiz!</h2>
         <span class="text-center">@Model.Index of @Model.TotalQuestions</span>
     </div>
-
-    <div class=" row col-md-12 col-lg-12 col-sm-12 "style="margin-top:3rem">
-        <div class="col-md-6 col-lg-6 col-sm-12 " style="text-align:right">
-            <img src="~/Content/Image/@Model.Question.Flag.Image" class="flag" />
-        </div>
-        <div class="col-md-6 col-lg-6 col-sm-12 ">
-            <div class="list-group" style="margin-left:3rem">
-                @foreach (var option in Model.Question.Options)
-                {
-                    <button id="@option.IdFlag" value="@option.IdFlag" type="button" class=" btn  btn-outline-primary option" onclick="submitAnswer(this.id)"> @option.Country</button>
-                }
-            </div>
-
-        </div>
-    </div>
-
+    <div>
+        @Html.Partial("_FlagOption", Model.Question)
+    </div>    
     <div class="col-md-12 col-lg-12 col-sm-12 " id="div-next"style="text-align: center;display:none">
         @if (@Model.Index + 1 > Model.TotalQuestions)
         {

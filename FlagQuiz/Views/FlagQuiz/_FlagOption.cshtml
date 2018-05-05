@@ -1,0 +1,17 @@
+﻿@using FlagQuiz.Models
+@model  FlagQuiz.Models.Question
+
+<div class=" row col-md-12 col-lg-12 col-sm-12 "style="margin-top:3rem">
+<div class="col-md-6 col-lg-6 col-sm-12 " style="text-align:right">
+    <img src="~/Content/Image/@Model.Flag.Image" class="flag" />
+</div>
+<div class="col-md-6 col-lg-6 col-sm-12 ">
+    <div class="list-group" style="margin-left:3rem">
+        @foreach (var option in Model.Options)
+        {
+            <button id="@option.IdFlag" value="@option.IdFlag" type="button" class=" btn  btn-outline-primary option" onclick="submitAnswer(this.id)"> @option.Country</button>
+        }
+    </div>
+
+</div>
+</div>
