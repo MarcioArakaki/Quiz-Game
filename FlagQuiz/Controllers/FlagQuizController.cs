@@ -38,16 +38,22 @@ namespace FlagQuiz.Controllers
         }
         public void SaveGameHistory(int indexQuestion, int idAnswer, Flag correctAnswer, bool correct)
         {
-            var QuizResult = (TempData["QuizResult"] as List<QuestionResult>) ?? new List<QuestionResult>();
-            QuizResult.Add(
-                new QuestionResult()
-                {
-                    Index = indexQuestion,
-                    Answer = _flagRepository.Get(idAnswer),
-                    CorrectAnswer = correctAnswer,
-                    Correct = correct,
-                });
-            TempData["QuizResult"] = QuizResult;
+            var quizResult = (TempData["QuizResult"] as List<QuestionResult>) ?? new List<QuestionResult>();
+
+            //prevents multiple answers to the same question, and prevents cheating 
+            if (quizResult.All(x => x.Index != indexQuestion)) 
+            {
+                quizResult.Add(
+                    new QuestionResult()
+                    {
+                        Index = indexQuestion,
+                        Answer = _flagRepository.Get(idAnswer),
+                        CorrectAnswer = correctAnswer,
+                        Correct = correct,
+                    });
+            }
+            
+            TempData["QuizResult"] = quizResult;
         }
 
         public ActionResult Result()
