@@ -7,21 +7,23 @@ namespace FlagQuiz.Repositories
     public class QuizRepository
     {
         private readonly QuestionRepository _questionRepository;
-        private readonly FlagRepository _flagRepository;
         private readonly List<Quiz> _quiz;
 
         public QuizRepository()
         {
-            _flagRepository = new FlagRepository();
-            _questionRepository = new QuestionRepository(_flagRepository);
+            var flagRepository = new FlagRepository();
+            _questionRepository = new QuestionRepository(flagRepository);
+            _quiz = InitializeQuiz();
         }
 
-
+        /// <summary>
+        /// Initialize the quiz repository to simulate a Database
+        /// </summary>
         public List<Quiz> InitializeQuiz()
         {
             return new List<Quiz>() { new Quiz
             {
-                IdQuiz = 1, //Fixed here but it would be auto generated with a DB
+                IdQuiz = 1,
                 TotalQuestions = 10,
                 Questions = _questionRepository.GetAll().Take(10).ToList(), //TODO: Make this random
             }};

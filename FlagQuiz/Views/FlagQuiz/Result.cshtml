@@ -1,0 +1,28 @@
+﻿@model  FlagQuiz.Models.ViewModels.QuizResultViewModel
+
+<div class="container" style="margin:0 auto;">
+    <div class="col-md-12 col-lg-12 col-sm-12 result text-center">
+
+        <h2 style="margin-bottom:2rem">Flag Quiz!</h2>
+        <h2>You got @Model.Results.Count(x => x.Correct) out of @Model.Results.Count()</h2>
+        <h2>Your score is:</h2>
+        <h1 class="display-1">@Model.Points</h1>
+        <button class="btn  btn-outline-primary" onclick="location.href='@(Url.Action("Flags", "FlagQuiz",new { indexQuestion = 1 }))'">Play Again</button>
+        </div>
+    <div class="col-md-12 col-lg-12 col-sm-12 text-center">
+        <h3>Summary</h3>
+        <ul class="list-group result">
+            @foreach (var result in Model.Results)
+        {
+            if (result.Correct)
+            {
+                <li class="list-group-item text-success">Flag @result.Index: The answer was @result.CorrectAnswer.Country and you got it right correct! (@result.Points points won)</li>
+        }
+        else
+        {
+            <li class="list-group-item text-danger">Flag @result.Index:The answer was @result.CorrectAnswer.Country but your answer was @result.Answer.Country (@result.Points points missed)</li>
+    }
+}
+        </ul>
+    </div>
+</div>

@@ -22,3 +22,73 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.option {
+    margin: 10px;
+    height: 70px;
+}
+
+.option-disabled {
+    pointer-events: none;
+}
+
+.outer {
+    display: table;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.middle {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.inner {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    /*whatever width you want*/
+}
+
+.row-question {
+    margin-top: 20%;
+}
+
+h2, h1 {
+    text-align: center;
+    font-family: 'Bookman Old Style';
+}
+
+h2.title {
+
+}
+
+div.result {
+    margin-bottom: 3rem;
+}
+
+ul.result {
+    width: 50%;
+    margin: auto;
+    text-align: center;
+}
+
+input.next {
+    width: 7rem;
+    font-size: xx-large;
+    margin-top: 1rem;
+    width: 30rem;
+    height: 5rem;
+}
+
+input[type=button], button {
+    border-radius: 0 !important;
+}
+
+.flag {
+    height: 280px;
+    border-style: solid;
+    border-width: thin;
+    margin-top: 3rem;
+}

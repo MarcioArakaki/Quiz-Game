@@ -2,16 +2,16 @@
 @model QuizViewModel
 
 <div class="container">
-    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 text-center">
+    <div class="col-md-12 col-lg-12 col-sm-12 text-center">
         <h2>Flag Quiz!</h2>
         <span class="text-center">@Model.Index of @Model.TotalQuestions</span>
     </div>
 
-    <div class=" row col-md-12 col-lg-12 col-sm-12 col-xs-12">
-        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12" style="text-align:right">
+    <div class=" row col-md-12 col-lg-12 col-sm-12 "style="margin-top:3rem">
+        <div class="col-md-6 col-lg-6 col-sm-12 " style="text-align:right">
             <img src="~/Content/Image/@Model.Question.Flag.Image" class="flag" />
         </div>
-        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+        <div class="col-md-6 col-lg-6 col-sm-12 ">
             <div class="list-group" style="margin-left:3rem">
                 @foreach (var option in Model.Question.Options)
                 {
@@ -22,14 +22,14 @@
         </div>
     </div>
 
-    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="text-align:center">
+    <div class="col-md-12 col-lg-12 col-sm-12 " id="div-next"style="text-align: center;display:none">
         @if (@Model.Index + 1 > Model.TotalQuestions)
         {
-            <input type="button" id="next" class="btn-lg btn btn-info next" style="display:none" onclick="location.href='@(Url.Action("Result", "FlagQuiz"))'" value="Next" />
+            <input type="button" id="next" class="btn-lg btn btn-info next" onclick="location.href='@(Url.Action("Result", "FlagQuiz"))'" value="Result" />
         }
         else
         {
-            <input type="button" id="next" class="btn-lg btn btn-info next" style="display:none" onclick="location.href='@(Url.Action("Flags", "FlagQuiz", new { id = @Model.Index + 1 }))'" value="Next" />
+            <input type="button" id="next" class="btn-lg btn btn-info next"  onclick="location.href='@(Url.Action("Flags", "FlagQuiz", new { indexQuestion = @Model.Index + 1 }))'" value="Next" />
         }
     </div>
 </div>
@@ -39,21 +39,21 @@
 
     const questionId = @Model.Question.IdQuestion;
     const answered = false;
-        function submitAnswer(idOption) {
+    function submitAnswer(idAnswer) {
             $.ajax({
                 type: "POST",
                 url: '@Url.Action("CheckAnswer", "FlagQuiz")',
-                data: { "idQuestion": questionId, "idOption": idOption},
+                data: { "indexQuestion": questionId, "idAnswer": idAnswer},
                 cache: false,
                 success: function (data) {
-                    if (data.correctAnswer) {
-                        $("#" + idOption).removeClass("btn-outline-primary");
-                        $("#" + idOption).addClass("btn-outline-success active");
+                    if (data.correct) {
+                        $("#" + idAnswer).removeClass("btn-outline-primary");
+                        $("#" + idAnswer).addClass("btn-outline-success active");
                     } else {
-                        $("#" + idOption).removeClass("btn-outline-primary");
-                        $("#" + idOption).addClass("btn-outline-danger active");
+                        $("#" + idAnswer).removeClass("btn-outline-primary");
+                        $("#" + idAnswer).addClass("btn-outline-danger active");
                     }
-                    $("#next").show();
+                    $("#div-next").show();
                 }
             }).done(function () {
                 $(".option").addClass("option-disabled");
